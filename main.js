@@ -1,3 +1,5 @@
+
+////////////////////////////////////////////////////////////////////
 var config = {
   LOG: false,
   DATE_RANGE: last_n_days(30),
@@ -39,7 +41,7 @@ function main() {
   var recipientEmails = config.EMAIL_ADDRESSES.split(',');
   var subject = "PMAX Search Terms Report [UK]";
   var body =
-    "The PMax Search Terms Report has been generated and is available at: " +
+    "The PMAX Search Terms Report has been generated and is available at: " +
     config.SPREADSHEET_URL +
     "\n\nReport covers the last " +
     config.DATE_RANGE +
@@ -160,3 +162,5 @@ function google_date_range(from, to) {
 
   return result.join(',');
 } // function google_date_range()
+
+////////////////////////////////////////////////////////////////////
