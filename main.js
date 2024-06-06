@@ -2,7 +2,7 @@ var config = {
   LOG: false,
   DATE_RANGE: last_n_days(30),
   SPREADSHEET_URL: "https://docs.google.com/spreadsheets/d/1chP9SYjNLdvu1_4WeA-SJqu8ruIAn5kwDI7rSMvuk28/edit",
-  EMAIL_ADDRESSES: "lorenzo.filippini@croud.com, jamie.bloomfield@croud.com, beth.moran@croud.com, ben.jackson@croud.com"
+  EMAIL_ADDRESSES: ""
 };
 
 ////////////////////////////////////////////////////////////////////
