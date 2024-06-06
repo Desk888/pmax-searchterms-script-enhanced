@@ -1,9 +1,28 @@
+// PMAX SEARCH TERMS SCRIPT ENHANCED - V1.0.0
+//
+// This script takes inspiration of current scripts around the web, but enhanced with additional features and some code changes.
+// This script is free to use and alter for all.
+//
+// ** INSTRUCTIONS **
+// - DATE_RANGE: Please specify (in numbers) the days of search term you would like to retrieve.
+// - SPREADSHEET_URL: Create an empty spreadsheet and set it's restrictions to open with editing mode.
+// - EMAIL_ADDRESSES: Enter the email address to send an alert when the script will run.
+//
+// ** SUGGESTIONS **
+// - You can run this script however you like but I suggest it run it monthly.
+// 
+// ** NOTES **
+// - In order to run this script you need to make sure the permission of your sheet are set to 'Anyone with the link' and editor mode enabled.
+// - This script don't work at MCC level.
+
+
 
 ////////////////////////////////////////////////////////////////////
+// CONFIGURATIONS
 var config = {
   LOG: false,
   DATE_RANGE: last_n_days(30),
-  SPREADSHEET_URL: "",
+  SPREADSHEET_URL: "", // Only include URL until /edit.
   EMAIL_ADDRESSES: ""
 };
 
