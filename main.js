@@ -1,22 +1,20 @@
-// PMAX SEARCH TERMS SCRIPT ENHANCED - V1.0.0
-//
-// This script takes inspiration from current scripts around the web, but enhanced with additional features and some code changes.
-// This script is free to use and alter for all.
-//
+// PMAX SEARCH TERMS SCRIPT ENHANCED - V1.0.1 (Review Readme file for updates)
+
 // ** INSTRUCTIONS **
+
 // - DATE_RANGE: Please specify (in numbers) the days of search term you would like to retrieve.
 // - SPREADSHEET_URL: Create an empty spreadsheet and set its restrictions to open with editing mode.
 // - EMAIL_ADDRESSES: Enter the email address to send an alert when the script will run.
-//
-// ** SUGGESTIONS **
-// - You can run this script however you like but I suggest running it monthly.
-//
-// ** NOTES **
+
+// ** NOTE **
+
 // - To run this script, you need to make sure the permission of your sheet is set to 'Anyone with the link' and editor mode enabled.
 // - This script doesn't work at MCC level.
 
 ////////////////////////////////////////////////////////////////////
+
 // CONFIGURATIONS
+
 var config = {
   LOG: false,
   DATE_RANGE: last_n_days(30),
@@ -26,7 +24,11 @@ var config = {
 
 ////////////////////////////////////////////////////////////////////
 
+// ***DO NOT CHANGE THE CODE BELOW***
+
 function main() {
+  
+  // Campaign Selection and SQL Query
   var spreadsheet = SpreadsheetApp.openByUrl(config.SPREADSHEET_URL);
 
   let campaignIterator = AdsApp
@@ -51,7 +53,7 @@ function main() {
 
     let sheet = checkTab(spreadsheet);
     query.exportToSheet(sheet);
-    formatSheet(sheet); // Call the function to format the sheet
+    formatSheet(sheet); 
   } // campaignIterator
 
   // Send Email Functionality
@@ -69,13 +71,12 @@ function main() {
 }
 
 ////////////////////////////////////////////////////////////////////
-// Spreadsheet Generation
+
+// Spreadsheet Creation
 function checkTab(file) {
   var spreadsheet = SpreadsheetApp.openById(file.getId());
-
-  // Generate sheet name based on current date
   var currentDate = new Date();
-  var sheetName = currentDate.toISOString().slice(0, 10); // YYYY-MM-DD format
+  var sheetName = currentDate.toISOString().slice(0, 10);
 
   var tab = spreadsheet.getSheetByName(sheetName);
   if (tab) {
@@ -106,10 +107,10 @@ function checkTab(file) {
 
 ////////////////////////////////////////////////////////////////////
 
+// Spreadsheet Formatting
 function formatSheet(sheet) {
   Logger.log("Starting formatSheet function");
 
-  // Check if sheet is valid and has data
   if (!sheet) {
     Logger.log("Error: The sheet object is not valid.");
     return;
@@ -117,25 +118,21 @@ function formatSheet(sheet) {
   Logger.log("Sheet name: " + sheet.getName());
   Logger.log("Sheet rows: " + sheet.getLastRow() + ", columns: " + sheet.getLastColumn());
 
-  // Apply header formatting
   var headerRange = sheet.getRange(1, 1, 1, sheet.getLastColumn());
   Logger.log("Header Range: " + headerRange.getA1Notation());
   headerRange.setFontWeight('bold');
   headerRange.setBackground('#4caf50');
   headerRange.setFontColor('white');
 
-  // Apply number formatting for metrics
-  if (sheet.getLastRow() > 1) { // Ensure there are data rows
+  if (sheet.getLastRow() > 1) { 
     var dataRange = sheet.getRange(2, 2, sheet.getLastRow() - 1, sheet.getLastColumn() - 1);
     Logger.log("Data Range: " + dataRange.getA1Notation());
     dataRange.setNumberFormat('#,##0'); 
 
-    // Apply currency formatting for conversion values
     var conversionValueRange = sheet.getRange(2, 5, sheet.getLastRow() - 1, 1); 
     Logger.log("Conversion Value Range: " + conversionValueRange.getA1Notation());
     conversionValueRange.setNumberFormat('£#,##0.00'); 
 
-    // Apply alternating row colors
     var range = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn());
     Logger.log("Row Banding Range: " + range.getA1Notation());
     range.applyRowBanding(SpreadsheetApp.BandingTheme.LIGHT_GREY);
@@ -143,13 +140,13 @@ function formatSheet(sheet) {
     Logger.log("No data rows found to apply formatting.");
   }
 
-  // Auto resize columns
   sheet.autoResizeColumns(1, sheet.getLastColumn());
   Logger.log("Completed formatSheet function");
 }
 
 ////////////////////////////////////////////////////////////////////
 
+// Date Range Logic
 function last_n_days(n) {
   var from = new Date();
   var to = new Date();
@@ -158,8 +155,6 @@ function last_n_days(n) {
 
   return google_date_range(to, from);
 } // function last_n_days()
-
-////////////////////////////////////////////////////////////////////
 
 function google_date_range(from, to) {
 
