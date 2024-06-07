@@ -15,8 +15,6 @@
 // - In order to run this script you need to make sure the permission of your sheet are set to 'Anyone with the link' and editor mode enabled.
 // - This script don't work at MCC level.
 
-
-
 ////////////////////////////////////////////////////////////////////
 // CONFIGURATIONS
 var config = {
@@ -40,7 +38,7 @@ function main() {
     let campaign = campaignIterator.next();
 
     let query = AdsApp.report(
-      "SELECT campaign_search_term_insight.category_label, metrics.clicks, metrics.impressions, metrics.conversions, metrics.conversions_value " +
+      "SELECT campaign_search_term_insight.category_label, metrics.clicks, metrics.impressions, metrics.conversions, metrics.conversions_value, metrics.cost_micros, metrics.average_cpc " +
       "FROM campaign_search_term_insight " +
       "WHERE campaign_search_term_insight.campaign_id = '" + campaign.getId() + "' " +
       "AND segments.date BETWEEN '" + config.DATE_RANGE.split(',')[0] + "' AND '" + config.DATE_RANGE.split(',')[1] + "' " +
@@ -119,19 +117,29 @@ function formatSheet(sheet) {
   var headerRange = sheet.getRange(1, 1, 1, sheet.getLastColumn());
   Logger.log("Header Range: " + headerRange.getA1Notation());
   headerRange.setFontWeight('bold');
-  headerRange.setBackground('#4caf50'); // Green background
+  headerRange.setBackground('#4caf50');
   headerRange.setFontColor('white');
 
   // Apply number formatting for metrics
   if (sheet.getLastRow() > 1) { // Ensure there are data rows
     var dataRange = sheet.getRange(2, 2, sheet.getLastRow() - 1, sheet.getLastColumn() - 1);
     Logger.log("Data Range: " + dataRange.getA1Notation());
-    dataRange.setNumberFormat('#,##0'); // Number format with thousands separator
+    dataRange.setNumberFormat('#,##0');
 
     // Apply currency formatting for conversion values
-    var conversionValueRange = sheet.getRange(2, 5, sheet.getLastRow() - 1, 1); // Assuming conversion values are in the 5th column
+    var conversionValueRange = sheet.getRange(2, 5, sheet.getLastRow() - 1, 1); 
     Logger.log("Conversion Value Range: " + conversionValueRange.getA1Notation());
-    conversionValueRange.setNumberFormat('£#,##0.00'); // Currency format
+    conversionValueRange.setNumberFormat('£#,##0.00');
+
+    // Apply currency formatting for cost (cost_micros converted to currency)
+    var costRange = sheet.getRange(2, 6, sheet.getLastRow() - 1, 1);
+    Logger.log("Cost Range: " + costRange.getA1Notation());
+    costRange.setNumberFormat('£#,##0.00');
+
+    // Apply number formatting for CPC
+    var cpcRange = sheet.getRange(2, 7, sheet.getLastRow() - 1, 1);
+    Logger.log("CPC Range: " + cpcRange.getA1Notation());
+    cpcRange.setNumberFormat('£#,##0.00');
 
     // Apply alternating row colors
     var range = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn());
