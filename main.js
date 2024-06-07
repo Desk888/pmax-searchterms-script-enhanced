@@ -49,7 +49,7 @@ function main() {
       Logger.log("Report " + campaign.getName() + " contains " + query.rows().totalNumEntities() + " rows.");
     }
 
-    let sheet = checkTab(spreadsheet, campaign.getName());
+    let sheet = checkTab(spreadsheet);
     query.exportToSheet(sheet);
     formatSheet(sheet); // Call the function to format the sheet
   } // campaignIterator
