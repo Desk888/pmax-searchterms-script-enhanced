@@ -54,7 +54,7 @@ function main() {
     formatSheet(sheet); // Call the function to format the sheet
   } // campaignIterator
 
-  // Send Email Functionality by Lorenzo Filippini
+  // Send Email Functionality
   var recipientEmails = config.EMAIL_ADDRESSES.split(',');
   var subject = "PMAX Search Terms Report [UK]";
   var body =
@@ -69,19 +69,23 @@ function main() {
 }
 
 ////////////////////////////////////////////////////////////////////
-
-function checkTab(file, tabName) {
+// Spreadsheet Generation
+function checkTab(file) {
   var spreadsheet = SpreadsheetApp.openById(file.getId());
 
-  var tab = spreadsheet.getSheetByName(tabName);
+  // Generate sheet name based on current date
+  var currentDate = new Date();
+  var sheetName = currentDate.toISOString().slice(0, 10); // YYYY-MM-DD format
+
+  var tab = spreadsheet.getSheetByName(sheetName);
   if (tab) {
     if (config.LOG === true) {
-      Logger.log("Selected tab " + tabName);
+      Logger.log("Selected tab " + sheetName);
     }
   } else {
-    tab = spreadsheet.insertSheet(tabName);
+    tab = spreadsheet.insertSheet(sheetName);
     if (config.LOG === true) {
-      Logger.log("Created tab " + tabName);
+      Logger.log("Created tab " + sheetName);
     }
   }
 
