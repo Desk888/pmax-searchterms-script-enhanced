@@ -40,7 +40,7 @@ function main() {
     let campaign = campaignIterator.next();
 
     let query = AdsApp.report(
-      "SELECT campaign_search_term_insight.category_label, metrics.clicks, metrics.impressions, metrics.conversions, metrics.cost, metrics.average_cpc, metrics.conversions_value " +
+      "SELECT campaign_search_term_insight.category_label, metrics.clicks, metrics.impressions, metrics.conversions, metrics.conversions_value " +
       "FROM campaign_search_term_insight " +
       "WHERE campaign_search_term_insight.campaign_id = '" + campaign.getId() + "' " +
       "AND segments.date BETWEEN '" + config.DATE_RANGE.split(',')[0] + "' AND '" + config.DATE_RANGE.split(',')[1] + "' " +
@@ -132,14 +132,6 @@ function formatSheet(sheet) {
     var conversionValueRange = sheet.getRange(2, 5, sheet.getLastRow() - 1, 1); 
     Logger.log("Conversion Value Range: " + conversionValueRange.getA1Notation());
     conversionValueRange.setNumberFormat('£#,##0.00'); 
-
-    // Apply currency formatting for cost
-    var costRange = sheet.getRange(2, 6, sheet.getLastRow() - 1, 1);
-    costRange.setNumberFormat('£#,##0.00');
-
-    // Apply number formatting for average CPC
-    var avgCPCRange = sheet.getRange(2, 7, sheet.getLastRow() - 1, 1);
-    avgCPCRange.setNumberFormat('£#,##0.00');
 
     var range = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn());
     Logger.log("Row Banding Range: " + range.getA1Notation());
