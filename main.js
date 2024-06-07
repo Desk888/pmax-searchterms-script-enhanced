@@ -1,4 +1,4 @@
-// PMAX SEARCH TERMS SCRIPT ENHANCED - V1.0.0
+// PMAX SEARCH TERMS SCRIPT ENHANCED - V1.0.1
 //
 // This script takes inspiration of current scripts around the web, but enhanced with additional features and some code changes.
 // This script is free to use and alter for all.
