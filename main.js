@@ -89,13 +89,7 @@ function checkTab(file) {
       Logger.log("Created tab " + sheetName);
     }
   }
-
-  // Remove default tab in Dutch
-  var defaultSheetDutch = spreadsheet.getSheetByName("Blad1");
-  if (defaultSheetDutch) {
-    spreadsheet.deleteSheet(defaultSheetDutch);
-  }
-
+  
   // Remove default tab in English
   var defaultSheetEnglish = spreadsheet.getSheetByName("Sheet1");
   if (defaultSheetEnglish) {
