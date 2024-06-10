@@ -42,9 +42,9 @@ function main() {
       Logger.log("Report " + campaign.getName() + " contains " + query.rows().totalNumEntities() + " rows.");
     }
 
-    let sheet = checkTab(spreadsheet);
+    let sheet = getOrCreateSheet(spreadsheet, config.SHEET_NAME); 
+    sheet.clear(); 
     query.exportToSheet(sheet);
-    formatSheet(sheet); 
   } // campaignIterator
 
   // Send Email Functionality
@@ -63,6 +63,7 @@ function main() {
 
 ////////////////////////////////////////////////////////////////////
 
+// Create Spreadsheet
 function getOrCreateSheet(spreadsheet, sheetName) {
   var sheet = spreadsheet.getSheetByName(sheetName);
   if (!sheet) {
