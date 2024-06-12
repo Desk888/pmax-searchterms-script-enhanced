@@ -43,7 +43,7 @@ function main() {
       "SELECT campaign_search_term_insight.category_label, metrics.clicks, metrics.impressions, metrics.conversions, metrics.conversions_value " +
       "FROM campaign_search_term_insight " +
       "WHERE campaign_search_term_insight.campaign_id = '" + campaign.getId() + "' " +
-      "AND segments.date BETWEEN '" + config.DATE_RANGE.split(',')[0] + "' AND '" + config.DATE_RANGE.split(',')[1] + "' " +
+      "DURING " + config.DATE_RANGE + " " +
       "ORDER BY metrics.impressions DESC"
     );
 
