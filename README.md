@@ -52,5 +52,6 @@ Formats the date range in the Google Ads API format.
 ## Version History
 
 - V1.0.1: Initial release of the enhanced PMAX Search Terms script.
+- V1.0.2: Added conditional formatting for conversion value metric.
 
 For any issues or questions, please contact [your email address or support channel].
